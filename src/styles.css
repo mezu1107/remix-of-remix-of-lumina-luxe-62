@@ -1,0 +1,401 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 10px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-onyx: var(--onyx);
+}
+
+:root {
+  --radius: 0.375rem;
+  /* Timera brand palette — deep black, warm ivory, accent gold */
+  /* Primary: #111111 | Secondary: #252525 | Background: #F7F5F0 | Gold: #B08D57 | Text: #333333 */
+  --background: #F7F5F0;
+  --foreground: #333333;
+  --card: #FFFFFF;
+  --card-foreground: #333333;
+  --popover: #FFFFFF;
+  --popover-foreground: #333333;
+  --primary: #B08D57;                        /* Timera gold */
+  --primary-foreground: #FFFFFF;
+  --secondary: #252525;
+  --secondary-foreground: #F7F5F0;
+  --muted: #EDEBE6;
+  --muted-foreground: #777063;
+  --accent: #B08D57;
+  --accent-foreground: #111111;
+  --destructive: oklch(0.55 0.19 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: #E2DED6;
+  --input: #E8E5DF;
+  --ring: #B08D57;
+  --gold: #B08D57;
+  --gold-soft: #CDB07A;
+  --gold-deep: #8B6B3D;
+  --onyx: #F0EDE7;                           /* warm off-white surface */
+
+  --grad-gold: linear-gradient(135deg, #C9A46A 0%, #B08D57 55%, #8B6B3D 100%);
+  --grad-dark: linear-gradient(180deg, #F7F5F0 0%, #F0EDE7 100%);
+  --shadow-luxe: 0 20px 50px -20px rgba(0,0,0,0.14), 0 4px 12px -4px rgba(0,0,0,0.07);
+  --shadow-gold: 0 10px 35px -12px rgba(176,141,87,0.30);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+    color: #111111;
+  }
+  ::selection { background: #B08D57; color: #FFFFFF; }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #F0EDE7; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(#8B6B3D, #B08D57); border-radius: 8px; }
+}
+
+@utility gold-text {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gold-border {
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--background), var(--background)), var(--grad-gold);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--gold) 10%, transparent);
+}
+
+@utility shadow-luxe {
+  box-shadow: var(--shadow-luxe);
+}
+
+@utility shadow-gold {
+  box-shadow: var(--shadow-gold);
+}
+
+@utility container-luxe {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 1400px;
+}
+@media (min-width: 1024px) { .container-luxe { padding-inline: 2.5rem; } }
+
+@utility hairline {
+  position: relative;
+}
+.hairline::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  opacity: 0.4;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@utility shimmer {
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 40%, transparent), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@utility marquee {
+  animation: marquee 40s linear infinite;
+}
+@utility marquee-slow {
+  animation: marquee 55s linear infinite;
+}
+@utility marquee-reverse {
+  animation: marquee-reverse 50s linear infinite;
+}
+
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+@utility float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* ---------- Glass system (premium luxury polish) ---------- */
+@utility glass-card {
+  background: color-mix(in oklab, var(--card) 65%, transparent);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--gold) 14%, transparent);
+  box-shadow: var(--shadow-luxe);
+}
+
+@utility glass-panel {
+  background: color-mix(in oklab, var(--background) 55%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+@utility glass-chip {
+  background: color-mix(in oklab, var(--background) 60%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+  border-radius: 999px;
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+}
+@utility sheen {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 28%, transparent), transparent);
+    animation: sheen 3.6s ease-in-out infinite;
+  }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@utility pop-in { animation: pop-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@utility lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  &:hover { transform: translateY(-4px); box-shadow: var(--shadow-luxe); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* -------- Buy Now • Cash on Delivery  — highest-converting button on site -------- */
+@utility btn-buynow {
+  background: #111111;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  height: 3.25rem;
+  padding-inline: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.2s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  &:hover { background: #252525; transform: translateY(-1px); }
+  &:active { transform: scale(0.98); }
+}
+
+/* -------- COD badge — high-visibility trust signal -------- */
+@utility cod-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #111111;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* -------- Trust row — compact horizontal trust strip -------- */
+@utility trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+/* ======================================================
+   2026 PREMIUM WATCH BRAND — REFINED SYSTEM
+   ====================================================== */
+
+/* Fluid heading scale — avoids layout shift on mobile */
+h1.font-serif, .text-hero {
+  font-size: clamp(2rem, 8vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+h2.font-serif {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  line-height: 1.08;
+}
+
+/* Tighter numerals for price display */
+.tabular-price {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "lnum";
+}
+
+/* Product card — sharper 2026 aesthetic */
+@utility card-product {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  &:hover {
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+}
+
+/* Mobile-first CTA button — large tap target, full width on mobile */
+@utility btn-cta-mobile {
+  height: 3.25rem;
+  min-height: 3.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: 0.375rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  &:active { transform: scale(0.98); }
+}
+
+/* COD pill — always green, high-contrast on dark and light bg */
+@utility pill-cod {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Announcement bar text — crisp on dark bg */
+@utility announcement-text {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Section divider — thin gold hairline */
+@utility section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+  opacity: 0.3;
+  margin-block: 1px;
+}
+
+/* Price — large, gold, no-nonsense */
+@utility price-hero {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 600;
+  color: #B08D57;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sticky bar safe area — critical for iPhone home bar */
+@utility safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* Focus ring — matches brand gold */
+@utility focus-gold {
+  &:focus-visible {
+    outline: 2px solid #B08D57;
+    outline-offset: 2px;
+  }
+}
+
+/* ── Mobile-only quick add strip on product cards ── */
+.product-card-mobile-add {
+  display: flex;
+}
+@media (min-width: 768px) {
+  .product-card-mobile-add { display: none; }
+}
+
