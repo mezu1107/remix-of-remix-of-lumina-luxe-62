@@ -46,6 +46,13 @@ export type SiteSettings = {
   bingSiteVerification: string | null;
   googleSiteVerification: string | null;
   pinterestSiteVerification: string | null;
+  // Homepage video sections
+  videoWristUrl: string | null;
+  videoWristTitle: string | null;
+  videoShowcaseUrl: string | null;
+  videoShowcaseTitle: string | null;
+  videoUgcUrl: string | null;
+  videoUgcTitle: string | null;
 };
 
 const asStrings = (v: unknown): string[] =>
@@ -104,6 +111,12 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   bingSiteVerification: null,
   googleSiteVerification: null,
   pinterestSiteVerification: null,
+  videoWristUrl: null,
+  videoWristTitle: null,
+  videoShowcaseUrl: null,
+  videoShowcaseTitle: null,
+  videoUgcUrl: null,
+  videoUgcTitle: null,
 };
 
 export function mapSiteSettings(r: Record<string, any> | null | undefined): SiteSettings {
@@ -150,6 +163,12 @@ export function mapSiteSettings(r: Record<string, any> | null | undefined): Site
     bingSiteVerification: r.bing_site_verification ?? null,
     googleSiteVerification: r.google_site_verification ?? null,
     pinterestSiteVerification: r.pinterest_site_verification ?? null,
+    videoWristUrl: r.video_wrist_url ?? null,
+    videoWristTitle: r.video_wrist_title ?? null,
+    videoShowcaseUrl: r.video_showcase_url ?? null,
+    videoShowcaseTitle: r.video_showcase_title ?? null,
+    videoUgcUrl: r.video_ugc_url ?? null,
+    videoUgcTitle: r.video_ugc_title ?? null,
   };
 }
 

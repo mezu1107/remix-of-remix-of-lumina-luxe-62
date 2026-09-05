@@ -107,6 +107,13 @@ function SettingsAdmin() {
         feature_cta_href: f.feature_cta_href || "/shop",
         feature_image_url: f.feature_image_url || null,
         feature_ends_at: f.feature_ends_at ? new Date(f.feature_ends_at).toISOString() : null,
+        // Homepage video sections
+        video_wrist_url: f.video_wrist_url || null,
+        video_wrist_title: f.video_wrist_title || null,
+        video_showcase_url: f.video_showcase_url || null,
+        video_showcase_title: f.video_showcase_title || null,
+        video_ugc_url: f.video_ugc_url || null,
+        video_ugc_title: f.video_ugc_title || null,
       };
       if (f.id) {
         const { error } = await supabase.from("site_settings" as any).update(payload).eq("id", f.id);
@@ -258,6 +265,49 @@ function SettingsAdmin() {
         </Field>
         <Field label="Background image">
           <ImageField value={f.feature_image_url ?? ""} onChange={(v) => set("feature_image_url", v)} />
+        </Field>
+      </Card>
+
+      <Card title="Homepage videos">
+        <p className="text-sm text-muted-foreground mb-5">
+          Upload videos to Supabase Storage or any CDN, then paste the URL here.
+          Only sections with a real URL will appear on the homepage — empty fields are hidden automatically.
+        </p>
+
+        <Field label="Watch on Wrist — video URL" help="A lifestyle or wrist-shot video. MP4 recommended. Shows first on homepage.">
+          <Input
+            value={f.video_wrist_url ?? ""}
+            onChange={(e) => set("video_wrist_url", e.target.value)}
+            placeholder="https://…/watch-on-wrist.mp4"
+            className="h-11"
+          />
+        </Field>
+        <Field label="Watch on Wrist — section title" help="Optional. Defaults to 'See it in action' if empty.">
+          <Input value={f.video_wrist_title ?? ""} onChange={(e) => set("video_wrist_title", e.target.value)} placeholder="See it on the wrist" />
+        </Field>
+
+        <Field label="Product Showcase — video URL" help="A product demo or close-up video. Shows second.">
+          <Input
+            value={f.video_showcase_url ?? ""}
+            onChange={(e) => set("video_showcase_url", e.target.value)}
+            placeholder="https://…/showcase.mp4"
+            className="h-11"
+          />
+        </Field>
+        <Field label="Product Showcase — section title">
+          <Input value={f.video_showcase_title ?? ""} onChange={(e) => set("video_showcase_title", e.target.value)} placeholder="Crafted to impress" />
+        </Field>
+
+        <Field label="Customer / UGC — video URL" help="A real customer video, unboxing or testimonial. Shows third.">
+          <Input
+            value={f.video_ugc_url ?? ""}
+            onChange={(e) => set("video_ugc_url", e.target.value)}
+            placeholder="https://…/customer-video.mp4"
+            className="h-11"
+          />
+        </Field>
+        <Field label="Customer / UGC — section title">
+          <Input value={f.video_ugc_title ?? ""} onChange={(e) => set("video_ugc_title", e.target.value)} placeholder="Real customers. Real Timera." />
         </Field>
       </Card>
 

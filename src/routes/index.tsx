@@ -28,6 +28,7 @@ import { siteSettingsQuery } from "@/lib/site-settings";
 import { paymentSettingsQuery } from "@/lib/catalog";
 import { ProductCard } from "@/components/product/ProductCard";
 import { TwoRowSlider } from "@/components/product/TwoRowSlider";
+import { HomepageVideoGrid } from "@/components/HomepageVideoSection";
 import { Button } from "@/components/ui/button";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { formatPrice } from "@/lib/utils";
@@ -678,9 +679,43 @@ function HomePage() {
         </section>
       )}
 
+      {/* 6b. Homepage Videos — Watch on Wrist, Showcase, UGC
+           Only renders when the admin has uploaded at least one video
+           via Admin → Settings → Homepage Videos */}
+      {(() => {
+        const vids = [
+          {
+            url: settings?.videoWristUrl ?? "",
+            eyebrow: "Watch On Wrist",
+            title: settings?.videoWristTitle ?? "See it in action",
+          },
+          {
+            url: settings?.videoShowcaseUrl ?? "",
+            eyebrow: "Product Showcase",
+            title: settings?.videoShowcaseTitle ?? "",
+          },
+          {
+            url: settings?.videoUgcUrl ?? "",
+            eyebrow: "Real Customers",
+            title: settings?.videoUgcTitle ?? "",
+          },
+        ].filter((v) => !!v.url.trim());
+        if (!vids.length) return null;
+        return (
+          <section className="container-luxe py-14 sm:py-20">
+            <SectionHeading
+              eyebrow="See It Live"
+              title="Watch Timera In Motion"
+            />
+            <div className="mt-10">
+              <HomepageVideoGrid videos={vids} />
+            </div>
+          </section>
+        );
+      })()}
+
       {/* 7. Collections */}
-      {collectionsList.length > 0 && (
-        <section className="container-luxe py-14 sm:py-20">
+      {collectionsList.length > 0 && (        <section className="container-luxe py-14 sm:py-20">
           <SectionHeading
             eyebrow="Browse by Style"
             title="Watch Collections"

@@ -39,6 +39,7 @@ import {
   ChevronLeft,
   Zap,
   MessageCircle,
+  Play,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
